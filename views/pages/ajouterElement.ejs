@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+    <%- include('../templates/head'); %>
+</head>
+<body class="container">
+    <header>
+        <%- include('../templates/header'); %>
+    </header>
+    <section class="row justify-content-around">
+        <article class="col-md-5">
+            <h4>Ajout d'une tâche à faire via formulaire</h4>
+            <p class="text-danger"><%= msg %></p>
+            <form action="/taskcreat/" method="post">
+                <div class="form-group">
+                    <label for="titre">Titre</label>
+                    <input class="form-control" type="text" name="titre" id="titre" autofocus required/>
+                </div>
+                <div class="form-group">
+                    <label for="dateDebut">Date de début</label>
+                    <input class="form-control" type="date" name="dateDebut" id="dateDebut" required/>
+                </div>
+                <div class="form-group"></div>
+                    <label for="dateFin">Date de fin</label>
+                    <input class="form-control" type="date" name="dateFin" id="dateFin" required/>
+                </div>
+                <div class="form-group">
+                    <label for="statut">Statut</label>
+                    <select class="form-control" name="statut" id="statut" required>
+                        <option value="Non_precise" selected>Non précisé</option>
+                        <option value="Une_tache_est_requise">Une tâche est requise</option>
+                        <option value="En_cours">En cours</option>
+                        <option value="Achevee">Achevée</option>
+                        <option value="Annulé">Annulé</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <input class="form-control" type="text" name="tags" id="tags" placeholder="sport, achats"/>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-light form-control" type="submit" />
+                </div>
+            </form>
+        </article>
+        <article col-md-5>
+            <h4>Ajout d'une tâche à faire via JSON</h4>
+            <form action="/taskcreat/" method="post">
+                <div class="form-group">
+                    <label for="tache">Structure JSON</label>
+                    <textarea class="form-control" type="text" name="tache" id="tache" rows="7" cols="40" required>
+{
+    "titre": "",
+    "dateDebut": "",
+    "dateFin": "",
+    "statut": "",
+    "tags": "" 
+}
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-light form-control" type="submit" />
+                </div>
+            </form>
+            <i>NB : L'identifiant de la tâche sera créé automatiquement lors de la création.</i>
+        </article>
+    </section>
+    <hr />
+    <footer class="page-footer font-small pt-4">
+        <%- include('../templates/footer'); %>
+    </footer>
+</body>
+</html>

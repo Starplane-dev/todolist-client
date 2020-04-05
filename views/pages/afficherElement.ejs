@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+    <%- include('../templates/head'); %>
+</head>
+<body class="container">
+    <header>
+        <%- include('../templates/header'); %>
+    </header>
+    <section class="row justify-content-around">
+        <article class="col-md-5">
+            <h4>Visualisation de la tâche</h4>
+            <p class="text-danger"><%= msg %></p>
+            <form action="/taskmod/" method="post"> <!-- Passer à PUT-->
+                <div class="form-group">
+                    <label for="id">Identifiant</label>
+                    <input class="form-control" type="text" name="id" id="id" value="<%= tache.id %>" readonly/>
+                </div>
+                <div class="form-group">
+                    <label for="titre">Titre</label>
+                    <input class="form-control" type="text" name="titre" id="titre" value="<%= tache.titre %>"/>
+                </div>
+                <div class="form-group">
+                    <label for="dateDebut">Date de début</label>
+                    <input class="form-control" type="date" name="dateDebut" id="dateDebut" value="<%= tache.dateDebut %>" />
+                </div>
+                <div class="form-group"></div>
+                    <label for="dateFin">Date de fin</label>
+                    <input class="form-control" type="date" name="dateFin" id="dateFin" value="<%= tache.dateFin %>"/>
+                </div>
+                <div class="form-group">
+                    <label for="statut">Statut</label>
+                    <select class="form-control" name="statut" id="statut">
+                        <option value="Non_precise" selected>Non précisé</option>
+                        <option value="Une_tache_est_requise">Une tâche est requise</option>
+                        <option value="En_cours">En cours</option>
+                        <option value="Achevee">Achevée</option>
+                        <option value="Annule">Annulé</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <input class="form-control" type="text" name="tags" id="tags" value="<%= tache.tags %>" />
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-light form-control" type="submit" value="Modifier" />
+                </div>
+            </form>
+        </article>
+        <article col-md-5>
+            <h4>Visualisation de la tâche</h4>
+            <form action="/taskmod/" method="post">
+                <div class="form-group">
+                    <label for="tache">Structure JSON</label>
+                    <textarea class="form-control" type="text" name="tache" id="tache" rows="8" cols="40"><%= tacheJSON %></textarea>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-light form-control" type="submit" value="Modifier" />
+                </div>
+            </form>
+            <i>NB : L'identifiant de la tâche ne sera pas modifié lors de la modification.</i>
+        </article>
+    </section>
+    <hr />
+    <footer class="page-footer font-small pt-4">
+        <%- include('../templates/footer'); %>
+    </footer>
+    <script>
+        selectElement("<%= tache.statut %>");
+
+        function selectElement(valeur) {    
+            let element = document.getElementById("statut").value = valeur;
+        }
+    </script>
+</body>
+</html>

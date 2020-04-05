@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<head>
+    <%- include('../templates/head'); %>
+</head>
+<body class="container">
+    <header>
+        <%- include('../templates/header'); %>
+    </header>
+    <section>
+        <article>
+            <h4>Filtre</h4>
+            <form class="form-inline justify-content-around" action="/taches" method="get">
+                <div class="form-group">
+                    <label for="statut">Statut &nbsp;</label>
+                    <select class="form-control" name="statut" id="statut" size="2" multiple>
+                        <option value="Non_precise">Non précisé</option>
+                        <option value="Une_tache_est_requise">Une tâche est requise</option>
+                        <option value="En_cours">En cours</option>
+                        <option value="Achevee">Achevée</option>
+                        <option value="Annule">Annulé</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags &nbsp;</label>
+                    <input class="form-control" type="text" name="tags" id="tags" value="<%= filtreTags %>"/>
+                </div>
+                <div class="form-group">
+                    <label for="echeance">Non arrivé à échéance &nbsp;</label>
+                    <% if(filtreEcheance !== undefined){ %>
+                        <input class="form-control" type="checkbox" name="echeance" checked>
+                    <% } else { %>
+                        <input class="form-control" type="checkbox" name="echeance">
+                    <% } %>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-light form-control" type="submit" value="Filtrer" />
+                </div>
+            </form>
+        </article>
+        <hr />
+        <article>
+            <h4>Liste de mes tâches à faire</h4>
+            <table class="table table-hover">
+                <tr>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Début</th>
+                    <th scope="col">Fin</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Catégorie</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                <% for (var i=0; i<liste.length; i++) { %>
+                    <tr>
+                        <td><%= liste[i].titre %></td>
+                        <td><%= liste[i].dateDebut %></td>
+                        <td><%= liste[i].dateFin %></td>
+                        <td><%= liste[i].statut %></td>
+                        <td><%= liste[i].tags %></td>
+                        <td>
+                            <a href="<%= /tache/ + liste[i].id %>"><img src="img\zoom-in.svg" width="30" height="30" class="d-inline-block align-top" alt=""></a>
+                            <a href="<%= /tachesupp/ + liste[i].id %>"><img src="img\remove-symbol.svg" width="30" height="30" class="d-inline-block align-top" alt=""></a>
+                        </td>
+                    </tr>
+                <% } %>
+            </table>
+        </article>
+    </section>
+    <footer class="page-footer font-small pt-4 container">
+        <hr />
+        <%- include('../templates/footer'); %>
+    </footer>
+    <script>
+        selectElement("<%= filtreStatut %>");
+
+        function selectElement(valeur) {
+            let element = document.getElementById("statut");
+            var valeurs = valeur.split(',');
+
+            for (var i = 0; i < element.options.length; i++) {
+                if(valeurs.includes(element.options[i].value)){
+                    element.options[i].setAttribute('selected', 'selected');
+                }
+            }
+            valeurs.forEach(function(elt){
+                
+                console.log(elt);
+                element.value = elt;
+            });
+        }
+    </script>
+</body>
+</html>
