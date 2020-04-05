@@ -84,7 +84,6 @@ app.get('/taches', (req, res) => {
                 });
             }
 
-            console.log(statuts +" : "+ tags +" : "+ echeance);
             res.render('pages/index.ejs', {liste: listeTache, filtreStatut: statuts, filtreEcheance: echeance, filtreTags: tags}); 
         });
     });
